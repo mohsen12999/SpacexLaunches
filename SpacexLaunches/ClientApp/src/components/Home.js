@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import x_svg from '../statics/x.svg'
+import check_svg from '../statics/check.svg'
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -22,6 +24,7 @@ export class Home extends Component {
                         <th>Rocket Name</th>
                         <th>Site Name</th>
                         <th>Launch Year</th>
+                        <th>Launch Success</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +34,7 @@ export class Home extends Component {
                             <td>{launch.rocket.rocket_name}</td>
                             <td>{launch.launch_site.site_name}</td>
                             <td>{launch.launch_year}</td>
+                            <td>{launch.launch_success ? <img src={check_svg} alt='check sign' />: <img src={x_svg} alt='x sign' />}</td>
                         </tr>
                     )}
                 </tbody>
