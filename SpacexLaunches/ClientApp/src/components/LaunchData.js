@@ -41,8 +41,8 @@ const LaunchData = () => {
                 <li className="list-group-item"><b>Launch Site:</b> {launchData.launch_site.site_name_long} </li>
                 <li className="list-group-item"><b>Ships:</b> {launchData.ships.join(',')} </li>
             </ul>
-            <div class="card" style={{ maxWidth: "300px", margin: "1rem" }}>
-                <img src={launchData.links.mission_patch} class="card-img-top" />
+            <div className="card" style={{ maxWidth: "300px", margin: "1rem" }}>
+                <img src={launchData.links.mission_patch} className="card-img-top" />
             </div>
         </div>
     )
