@@ -10,7 +10,7 @@ namespace SpacexLaunches.Controllers
     public class SpacexController : ControllerBase
     {
         private readonly ILogger<SpacexController> _logger;
-        const string launch_url = "https://api.spacexdata.com/v3/";
+        const string launch_url = "https://api.spacexdata.com/v3/launches/";
 
         public SpacexController(ILogger<SpacexController> logger)
         {
@@ -36,7 +36,7 @@ namespace SpacexLaunches.Controllers
         {
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(launch_url + "launches/" + id))
+                using (var response = await httpClient.GetAsync(launch_url + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     var launch = JsonSerializer.Deserialize<Launch>(apiResponse);
