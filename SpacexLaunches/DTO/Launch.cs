@@ -83,7 +83,7 @@ namespace SpacexLaunches.DTO
     {
         public string reference_system { get; set; }
         public string regime { get; set; }
-        public int? longitude { get; set; }
+        public float? longitude { get; set; }
         public double? semi_major_axis_km { get; set; }
         public double? eccentricity { get; set; }
         public double? periapsis_km { get; set; }
