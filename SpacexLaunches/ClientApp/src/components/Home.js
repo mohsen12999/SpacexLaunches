@@ -58,7 +58,7 @@ const Home = () => {
         : loadingError ?
             <p>
                 <em>Something Bad happened.</em>
-                <button type="button" class="btn btn-outline-primary" onClick={() => getAllLaunchesData()}>Reload</button>
+                <button type="button" className="btn btn-outline-primary" onClick={() => getAllLaunchesData()}>Reload</button>
             </p>
             :
             renderLaunchesTable(allLaunchesData)
