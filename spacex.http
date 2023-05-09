@@ -1,0 +1,28 @@
+# Get All Launches
+get https://api.spacexdata.com/v3/launches
+
+###
+
+# Get a Launch data
+get https://api.spacexdata.com/v3/launches/1
+
+###
+
+# Get a Launch data out of range
+get https://api.spacexdata.com/v3/launches/1001
+
+###
+
+# Get all launch data from controller 
+get https://localhost:44467/spacex
+
+###
+
+# Get one launch data from controller 
+get https://localhost:44467/spacex/1
+
+
+###
+
+# Get one launch data from controller 
+get https://localhost:44467/spacex/1001
