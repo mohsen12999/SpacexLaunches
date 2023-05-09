@@ -6,6 +6,7 @@ import check_svg from '../statics/check.svg'
 
 const Home = () => {
     const [loading, setLoading] = React.useState(true);
+    const [loadingError, setLoadingError] = React.useState(false);
     const [allLaunchesData, setAllLaunchesData] = React.useState({});
 
     React.useEffect(() => {
@@ -13,10 +14,16 @@ const Home = () => {
     }, []);
 
     const getAllLaunchesData = async () => {
+        setLoading(true)
         const launches_url = "https://api.spacexdata.com/v3/launches";
-        const response = await fetch(launches_url);
-        const data = await response.json();
-        setAllLaunchesData(data);
+        try {
+            const response = await fetch(launches_url);
+            const data = await response.json();
+            setAllLaunchesData(data);
+            setLoadingError(false);
+        } catch (error) {
+            setLoadingError(true);
+        }
         setLoading(false);
     }
 
@@ -35,7 +42,7 @@ const Home = () => {
                 {launches.map(launch =>
                     <tr key={launch.flight_number}>
                         <td>
-                            <Link to={"/launches/"+launch.flight_number}>{launch.mission_name}</Link></td>
+                            <Link to={"/launches/" + launch.flight_number}>{launch.mission_name}</Link></td>
                         <td>{launch.rocket.rocket_name}</td>
                         <td>{launch.launch_site.site_name}</td>
                         <td>{launch.launch_year}</td>
@@ -46,7 +53,15 @@ const Home = () => {
         </table>
     );
 
-    const content = loading ? <p><em>Loading...</em></p> : renderLaunchesTable(allLaunchesData)
+    const content = loading ?
+        <p><em>Loading...</em></p>
+        : loadingError ?
+            <p>
+                <em>Something Bad happened.</em>
+                <button type="button" class="btn btn-outline-primary" onClick={() => getAllLaunchesData()}>Reload</button>
+            </p>
+            :
+            renderLaunchesTable(allLaunchesData)
 
     return <div>
         <h1 id="tableLabel">launches List</h1>

@@ -1,23 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useParams } from "react-router-dom";
 
 const LaunchData = () => {
-    const {id} = useParams();
+    const { id } = useParams();
 
     const [loading, setLoading] = React.useState(true);
+    const [loadingError, setLoadingError] = React.useState(false);
     const [launchData, setLaunchData] = React.useState({});
 
     const getLaunchData = async (id) => {
-        const launches_url = "https://api.spacexdata.com/v3/launches/" + id;
-        const response = await fetch(launches_url);
-        const data = await response.json();
-        setLaunchData(data);
+        setLoading(true);
+        // const launches_url = "https://api.spacexdata.com/v3/launches/" + id;
+        const launches_url = "spacex/" + id;
+        try {
+            const response = await fetch(launches_url);
+            const data = await response.json();
+            setLaunchData(data);
+            setLoadingError(false);
+        } catch (error) {
+            setLoadingError(true);
+        }
         setLoading(false);
     }
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         getLaunchData(id);
-    },[]);
+    }, []);
 
     const renderLaunchData = (launchData) => (
         <div>
@@ -33,21 +41,24 @@ const LaunchData = () => {
                 <li className="list-group-item"><b>Launch Site:</b> {launchData.launch_site.site_name_long} </li>
                 <li className="list-group-item"><b>Ships:</b> {launchData.ships.join(',')} </li>
             </ul>
-            <div class="card" style={{maxWidth: "300px", margin:"1rem"}}>
-                <img src={launchData.links.mission_patch} class="card-img-top"  />
+            <div class="card" style={{ maxWidth: "300px", margin: "1rem" }}>
+                <img src={launchData.links.mission_patch} class="card-img-top" />
             </div>
         </div>
     )
 
-
     return loading ?
-         <p><em>Loading...</em></p>
-        : 
-        <div>
-            <h1 id="tableLabel">launch Data</h1>
-            {renderLaunchData(launchData)}
-        </div>
-
+        <p><em>Loading...</em></p>
+        : loadingError ?
+            <p>
+                <em>Something Bad happened.</em>
+                <button type="button" class="btn btn-outline-primary" onClick={() => getLaunchData(id)}>Reload</button>
+            </p>
+            :
+            <div>
+                <h1 id="tableLabel">launch Data</h1>
+                {renderLaunchData(launchData)}
+            </div>
 
 }
 
