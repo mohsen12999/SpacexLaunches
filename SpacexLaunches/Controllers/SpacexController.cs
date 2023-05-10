@@ -9,24 +9,28 @@ namespace SpacexLaunches.Controllers
     [Route("[controller]")]
     public class SpacexController : ControllerBase
     {
-        private readonly ILogger<SpacexController> _logger;
+        private readonly HttpClient _http;
         const string launch_url = "https://api.spacexdata.com/v3/launches/";
 
-        public SpacexController(ILogger<SpacexController> logger)
+        public SpacexController(HttpClient http)
         {
-            _logger = logger;
+            _http = http;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllLaunchAsync()
         {
-            using (var httpClient = new HttpClient())
+            using (var response = await _http.GetAsync(launch_url))
             {
-                using (var response = await httpClient.GetAsync(launch_url))
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     var launch = JsonSerializer.Deserialize<IEnumerable<Launch>>(apiResponse);
                     return Ok(launch);
+                }
+                else
+                {
+                    return BadRequest(response);
                 }
             }
         }
@@ -34,14 +38,19 @@ namespace SpacexLaunches.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetLaunchByIdAsync(int id)
         {
-            using (var httpClient = new HttpClient())
+            using (var response = await _http.GetAsync(launch_url + id))
             {
-                using (var response = await httpClient.GetAsync(launch_url + id))
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     var launch = JsonSerializer.Deserialize<Launch>(apiResponse);
                     return Ok(launch);
                 }
+                else
+                {
+                    return BadRequest(response);
+                }
+
             }
         }
     }
