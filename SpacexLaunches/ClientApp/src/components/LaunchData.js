@@ -52,7 +52,7 @@ const LaunchData = () => {
         : loadingError ?
             <p>
                 <em>Something Bad happened.</em>
-                <button type="button" class="btn btn-outline-primary" onClick={() => getLaunchData(id)}>Reload</button>
+                <button type="button" className="btn btn-outline-primary" onClick={() => getLaunchData(id)}>Reload</button>
             </p>
             :
             <div>
