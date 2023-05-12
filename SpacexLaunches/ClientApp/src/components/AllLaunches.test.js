@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
-import Home from './Home';
+import AllLaunches from './AllLaunches';
 
 global.fetch = (() =>
     Promise.resolve({}));
 
-describe("Home Component error", () => {
+describe("AllLaunches Component error", () => {
     it('Show something bad happen when problem in converting json...', async () => {
-        await act(async () => render(<Home />));
+        await act(async () => render(<AllLaunches />));
         expect(screen.getByText("Something Bad happened."));
     })
 })
@@ -21,9 +21,9 @@ describe("Home Component error", () => {
 //   );
 
 
-//   describe("Home Component valid", () => {
+//   describe("AllLaunches Component valid", () => {
 //     it('Show Data with good json...', async () => {
-//         await act(async() => render(<Home />));
+//         await act(async() => render(<AllLaunches />));
 //         expect(screen.getByText("Mission Name"));
 //     })
 //   })

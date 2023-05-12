@@ -1,10 +1,10 @@
-import Home  from "./components/Home";
+import AllLaunches  from "./components/AllLaunches";
 import LaunchData from "./components/LaunchData";
 
 const AppRoutes = [
     {
         index: true,
-        element: <Home />
+        element: <AllLaunches />
     },
     {
         path: '/launches/:id',

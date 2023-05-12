@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import x_svg from '../statics/x.svg'
 import check_svg from '../statics/check.svg'
 
-const Home = () => {
+const AllLaunches = () => {
     const [loading, setLoading] = React.useState(true);
     const [loadingError, setLoadingError] = React.useState(false);
     const [allLaunchesData, setAllLaunchesData] = React.useState({});
@@ -73,4 +73,4 @@ const Home = () => {
 
 }
 
-export default Home;
+export default AllLaunches;
