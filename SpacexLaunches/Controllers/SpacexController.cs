@@ -9,7 +9,7 @@ namespace SpacexLaunches.Controllers
     public class SpacexController : ControllerBase
     {
         private readonly HttpClient _http;
-        private const string LaunchUrl = "https://api.spacexdata.com/v3/launches/";
+        private const string LaunchUrl = "https://api.spacexdata.com/v5/launches/";
 
         public SpacexController(HttpClient http)
         {
@@ -40,8 +40,8 @@ namespace SpacexLaunches.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetLaunchByIdAsync(int id)
+        [HttpGet("{id:string}")]
+        public async Task<IActionResult> GetLaunchByIdAsync(string id)
         {
             using var response = await _http.GetAsync(LaunchUrl + id);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)

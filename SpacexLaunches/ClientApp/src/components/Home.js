@@ -15,7 +15,8 @@ const Home = () => {
 
     const getAllLaunchesData = async () => {
         setLoading(true)
-        const launches_url = "https://api.spacexdata.com/v3/launches";
+        const launches_url = "https://api.spacexdata.com/v5/launches";
+        // const launches_url = "spacex";
         try {
             const response = await fetch(launches_url);
             const data = await response.json();
@@ -32,21 +33,23 @@ const Home = () => {
             <thead>
                 <tr>
                     <th>Mission Name</th>
-                    <th>Rocket Name</th>
-                    <th>Site Name</th>
-                    <th>Launch Year</th>
+                    <th>Rocket</th>
+                    <th>Launchpad</th>
+                    <th>Flight Number</th>
+                    <th>Launch Date</th>
                     <th>Launch Success</th>
                 </tr>
             </thead>
             <tbody>
                 {launches.map(launch =>
-                    <tr key={launch.flight_number}>
+                    <tr key={launch.id}>
                         <td>
-                            <Link to={"/launches/" + launch.flight_number}>{launch.mission_name}</Link></td>
-                        <td>{launch.rocket.rocket_name}</td>
-                        <td>{launch.launch_site.site_name}</td>
-                        <td>{launch.launch_year}</td>
-                        <td>{launch.launch_success ? <img src={check_svg} alt='check sign' /> : <img src={x_svg} alt='x sign' />}</td>
+                            <Link to={"/launches/" + launch.id}>{launch.name}</Link></td>
+                        <td>{launch.rocket}</td>
+                        <td>{launch.launchpad}</td>
+                        <td>{launch.flight_number}</td>
+                        <td>{launch.date_utc}</td>
+                        <td>{launch.success ? <img src={check_svg} alt='check sign' /> : <img src={x_svg} alt='x sign' />}</td>
                     </tr>
                 )}
             </tbody>
