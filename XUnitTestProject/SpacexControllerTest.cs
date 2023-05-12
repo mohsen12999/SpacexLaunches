@@ -46,7 +46,7 @@ namespace XUnitTestProject
             var spacexController = new SpacexController(http);
 
             var result = await spacexController.GetAllLaunchAsync();
-            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<NotFoundObjectResult>(result);
         }
         
         [Fact]
@@ -60,7 +60,7 @@ namespace XUnitTestProject
             var spacexController = new SpacexController(http);
 
             var result = await spacexController.GetAllLaunchAsync();
-            Assert.IsType<ObjectResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
         
         [Fact]
@@ -85,7 +85,7 @@ namespace XUnitTestProject
             var spacexController = new SpacexController(http);
 
             var result = await spacexController.GetLaunchByIdAsync(1);
-            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<NotFoundObjectResult>(result);
         }
         
         [Fact]
@@ -99,7 +99,7 @@ namespace XUnitTestProject
             var spacexController = new SpacexController(http);
 
             var result = await spacexController.GetLaunchByIdAsync(1);
-            Assert.IsType<ObjectResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
         
         [Fact]

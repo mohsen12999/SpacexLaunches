@@ -30,13 +30,13 @@ namespace SpacexLaunches.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Problem(detail: e.Message);
+                    return BadRequest(e);
                 }
                     
             }
             else
             {
-                return BadRequest(response);
+                return NotFound(response);
             }
         }
 
@@ -54,12 +54,12 @@ namespace SpacexLaunches.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Problem(detail: e.Message);
+                    return BadRequest(e);
                 }
             }
             else
             {
-                return BadRequest(response);
+                return NotFound(response);
             }
         }
     }
