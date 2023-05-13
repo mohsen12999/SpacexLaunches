@@ -1,9 +1,29 @@
-﻿using System.Text.Json.Serialization;
-
-namespace SpacexLaunches.DTO
+﻿namespace SpacexLaunches.DTO
 {
 
-   public class Core
+    public class Launch
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string rocket { get; set; }
+        public string launchpad { get; set; }
+        public float? flight_number { get; set; }
+        public DateTime date_utc { get; set; }
+        public bool? success { get; set; }
+        public string details { get; set; }
+        public List<Crew> crew { get; set; }
+        public List<string> ships { get; set; }
+    }
+
+    public class Crew
+    {
+        public string crew { get; set; }
+        public string role { get; set; }
+    }
+
+    // using https://json2csharp.com/ website for converting json to C# model
+    /*
+    public class Core
     {
         public string core { get; set; }
         public int flight { get; set; }
@@ -77,5 +97,5 @@ namespace SpacexLaunches.DTO
         public List<Core> cores { get; set; }
         public string id { get; set; }
     }
-
+    */
 }
