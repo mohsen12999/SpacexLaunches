@@ -40,7 +40,7 @@ namespace SpacexLaunches.Controllers
             }
         }
 
-        [HttpGet("{id:string}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetLaunchByIdAsync(string id)
         {
             using var response = await _http.GetAsync(LaunchUrl + id);
