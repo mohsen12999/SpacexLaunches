@@ -4,34 +4,31 @@ import { useParams } from "react-router-dom";
 const LaunchData = () => {
     const { id } = useParams();
 
-    const [loading, setLoading] = React.useState(true);
-    const [loadingError, setLoadingError] = React.useState(false);
-    const [launchData, setLaunchData] = React.useState({});
+    const [totalState, setTotalState] = React.useState({ loading: true, error: true, launchData: [] })
 
     const getLaunchData = async (id) => {
-        setLoading(true);
+        setTotalState({ loading: true });
+
         const launches_url = "https://api.spacexdata.com/v5/launches/" + id;
         // const launches_url = "spacex/" + id;
         try {
             const response = await fetch(launches_url);
             const data = await response.json();
-            setLaunchData(data);
-            setLoadingError(false);
+            setTotalState({ loading: false, error: false , launchData: data });
         } catch (error) {
-            setLoadingError(true);
+            setTotalState({ loading: false, error: true });
         }
-        setLoading(false);
     }
 
     React.useEffect(() => {
         getLaunchData(id);
-    }, []);
+    }, [id]);
 
     const renderLaunchData = (launchData) => (
         <div className='container row'>
             <div className='col'>
                 <div className="card" style={{ maxWidth: "300px", margin: "1rem" }}>
-                    <img src={launchData.links.patch.large} className="card-img-top" />
+                    <img src={launchData.links.patch.large} className="card-img-top" alt={launchData.name + " image"} />
                 </div>
             </div>
             <div className='col'>
@@ -50,9 +47,9 @@ const LaunchData = () => {
         </div>
     )
 
-    return loading ?
+    return totalState.loading ?
         <p><em>Loading...</em></p>
-        : loadingError ?
+        : totalState.error ?
             <p>
                 <em>Something Bad happened.</em>
                 <button type="button" className="btn btn-outline-primary" onClick={() => getLaunchData(id)}>Reload</button>
@@ -60,7 +57,7 @@ const LaunchData = () => {
             :
             <div>
                 <h1 id="tableLabel">launch Data</h1>
-                {renderLaunchData(launchData)}
+                {renderLaunchData(totalState.launchData)}
             </div>
 
 }

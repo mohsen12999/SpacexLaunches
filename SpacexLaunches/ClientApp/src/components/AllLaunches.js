@@ -5,27 +5,25 @@ import x_svg from '../statics/x.svg'
 import check_svg from '../statics/check.svg'
 
 const AllLaunches = () => {
-    const [loading, setLoading] = React.useState(true);
-    const [loadingError, setLoadingError] = React.useState(false);
-    const [allLaunchesData, setAllLaunchesData] = React.useState({});
+    const [totalState, setTotalState] = React.useState({ loading: true, error: false, allLaunchesData :[] })
 
     React.useEffect(() => {
         getAllLaunchesData();
     }, []);
 
     const getAllLaunchesData = async () => {
-        setLoading(true)
+        setTotalState({ loading: true });
+
         const launches_url = "https://api.spacexdata.com/v5/launches";
         // const launches_url = "spacex";
         try {
             const response = await fetch(launches_url);
             const data = await response.json();
-            setAllLaunchesData(data);
-            setLoadingError(false);
+
+            setTotalState({ loading: false, error:false, allLaunchesData:data });
         } catch (error) {
-            setLoadingError(true);
+            setTotalState({ loading: false, error: true });
         }
-        setLoading(false);
     }
 
     const renderLaunchesTable = (launches) => (
@@ -56,15 +54,15 @@ const AllLaunches = () => {
         </table>
     );
 
-    const content = loading ?
+    const content = totalState.loading ?
         <p><em>Loading...</em></p>
-        : loadingError ?
+        : totalState.error ?
             <p>
                 <em>Something Bad happened.</em>
                 <button type="button" className="btn btn-outline-primary" onClick={() => getAllLaunchesData()}>Reload</button>
             </p>
             :
-            renderLaunchesTable(allLaunchesData)
+            renderLaunchesTable(totalState.allLaunchesData)
 
     return <div>
         <h1 id="tableLabel">launches List</h1>
