@@ -9,8 +9,8 @@ const LaunchData = () => {
     const getLaunchData = async (id) => {
         setTotalState({ loading: true });
 
-        const launches_url = "https://api.spacexdata.com/v5/launches/" + id;
-        // const launches_url = "spacex/" + id;
+        // const launches_url = "https://api.spacexdata.com/v5/launches/" + id;
+        const launches_url = "spacex/" + id;
         try {
             const response = await fetch(launches_url);
             const data = await response.json();
@@ -40,7 +40,7 @@ const LaunchData = () => {
                     <li className="list-group-item"><b>Launch Success:</b> {launchData.success}</li>
                     <li className="list-group-item"><b>Details:</b> {launchData.details}</li>
                     <li className="list-group-item"><b>Ships:</b> {launchData.ships.join(',')} </li>
-                    <li className="list-group-item"><b>Crew:</b> {launchData.crew.map((cr)=>(cr["crew"] + "(" + cr["role"] +")")).join(' ,')} </li>
+                    <li className="list-group-item"><b>Crew:</b> {launchData.crew.map((cr)=>(cr["crew"] + "(" + cr["role"] +")")).join(', ')} </li>
                 </ul>
             </div>
 
