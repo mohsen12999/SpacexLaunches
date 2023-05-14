@@ -13,12 +13,24 @@
         public string details { get; set; }
         public List<Crew> crew { get; set; }
         public List<string> ships { get; set; }
+        public Links links { get; set; }
     }
 
     public class Crew
     {
         public string crew { get; set; }
         public string role { get; set; }
+    }
+
+    public class Links
+    {
+        public Patch patch { get; set; }
+    }
+
+        public class Patch
+    {
+        public string small { get; set; }
+        public string large { get; set; }
     }
 
     // using https://json2csharp.com/ website for converting json to C# model
