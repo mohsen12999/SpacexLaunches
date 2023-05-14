@@ -40,7 +40,7 @@ const LaunchData = () => {
                     <li className="list-group-item"><b>Launch Success:</b> {launchData.success}</li>
                     <li className="list-group-item"><b>Details:</b> {launchData.details}</li>
                     <li className="list-group-item"><b>Ships:</b> {launchData.ships.join(',')} </li>
-                    <li className="list-group-item"><b>Crew:</b> {launchData.crew.join(',')} </li>
+                    <li className="list-group-item"><b>Crew:</b> {launchData.crew.map((cr)=>(cr["crew"] + "(" + cr["role"] +")")).join(' ,')} </li>
                 </ul>
             </div>
 
