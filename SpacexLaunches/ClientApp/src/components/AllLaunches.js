@@ -14,13 +14,18 @@ const AllLaunches = () => {
     const getAllLaunchesData = async () => {
         setTotalState({ loading: true });
 
-        const launches_url = "https://api.spacexdata.com/v5/launches";
-        // const launches_url = "spacex";
+        // const launches_url = "https://api.spacexdata.com/v5/launches";
+        const launches_url = "spacex";
+        
         try {
             const response = await fetch(launches_url);
-            const data = await response.json();
-
-            setTotalState({ loading: false, error:false, allLaunchesData:data });
+            if(response.ok){
+                const data = await response.json();
+                setTotalState({ loading: false, error:false, allLaunchesData:data });
+            } else {
+                setTotalState({ loading: false, error: true });
+            }
+            
         } catch (error) {
             setTotalState({ loading: false, error: true });
         }

@@ -11,10 +11,15 @@ const LaunchData = () => {
 
         // const launches_url = "https://api.spacexdata.com/v5/launches/" + id;
         const launches_url = "spacex/" + id;
+        
         try {
             const response = await fetch(launches_url);
-            const data = await response.json();
-            setTotalState({ loading: false, error: false , launchData: data });
+            if(response.ok){
+                const data = await response.json();
+                setTotalState({ loading: false, error: false , launchData: data });
+            } else {
+                setTotalState({ loading: false, error: true });
+            }
         } catch (error) {
             setTotalState({ loading: false, error: true });
         }
